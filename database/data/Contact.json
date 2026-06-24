@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "v6auenl",
+    "createdAt": "2026-06-23T14:30:00.000Z",
+    "updatedAt": "2026-06-24T06:04:42.632Z",
+    "date": 1782281082632,
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "mobileNumber": "555-123-4567",
+    "subject": "Inquiry for Web Design Project",
+    "message": "Hello, I represent a startup looking to redesign our corporate landing page. We love the glassmorphic styling on your portfolio. Could you provide a rough estimate?"
+  },
+  {
+    "_id": "mhfrlue",
+    "createdAt": "2026-06-24T08:15:00.000Z",
+    "updatedAt": "2026-06-24T06:04:42.635Z",
+    "date": 1782281082635,
+    "name": "Bob Miller",
+    "email": "bob@example.com",
+    "mobileNumber": "555-987-6543",
+    "subject": "Partnership Opportunity",
+    "message": "Hi team, I would love to explore potential agency partnership opportunities with JAC MediaLand. We specialize in custom illustrations that could complement your designs."
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "mr0fa5e",
+    "createdAt": "2026-06-24T06:04:42.614Z",
+    "updatedAt": "2026-06-24T06:04:42.614Z",
+    "createdDate": 1782281082614,
+    "name": "Graphic Design",
+    "icon": "FaPaintBrush",
+    "description": "Crafting stunning brand identities, vector illustrations, promotional banners, and marketing collaterals."
+  },
+  {
+    "_id": "04q80q0",
+    "createdAt": "2026-06-24T06:04:42.616Z",
+    "updatedAt": "2026-06-24T06:04:42.616Z",
+    "createdDate": 1782281082615,
+    "name": "Website Development",
+    "icon": "FaCode",
+    "description": "Developing blazing-fast, responsive web applications using the latest web technologies and performance tools."
+  },
+  {
+    "_id": "qwks0qn",
+    "createdAt": "2026-06-24T06:04:42.619Z",
+    "updatedAt": "2026-06-24T06:04:42.619Z",
+    "createdDate": 1782281082619,
+    "name": "Digital Marketing",
+    "icon": "FaBullhorn",
+    "description": "Expanding your reach using SEO, targeted ads, content generation, and smart marketing funnels."
+  }
+]

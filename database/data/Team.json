@@ -1,0 +1,33 @@
+[
+  {
+    "_id": "79qsb3d",
+    "createdAt": "2026-06-24T06:04:42.620Z",
+    "updatedAt": "2026-06-24T06:04:42.620Z",
+    "joiningDate": "2024-01-15T00:00:00.000Z",
+    "employeeName": "Jane Doe",
+    "designation": "Managing Director & Founder",
+    "email": "jane@jacmedialand.com",
+    "mobileNumber": "+1 234 567 890",
+    "profilePhoto": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80",
+    "socialMediaLinks": {
+      "linkedin": "https://linkedin.com/in/janedoe",
+      "twitter": "https://twitter.com/janedoe",
+      "github": ""
+    }
+  },
+  {
+    "_id": "2t4pr0e",
+    "createdAt": "2026-06-24T06:04:42.621Z",
+    "updatedAt": "2026-06-24T06:04:42.621Z",
+    "joiningDate": "2025-06-01T00:00:00.000Z",
+    "employeeName": "John Smith",
+    "designation": "Lead Frontend Architect",
+    "email": "john@jacmedialand.com",
+    "mobileNumber": "+1 987 654 321",
+    "profilePhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80",
+    "socialMediaLinks": {
+      "linkedin": "https://linkedin.com/in/johnsmith",
+      "github": "https://github.com/johnsmith"
+    }
+  }
+]

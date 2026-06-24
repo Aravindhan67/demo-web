@@ -1,0 +1,13 @@
+[
+  {
+    "_id": "ecp0os4",
+    "createdAt": "2026-06-24T06:04:42.631Z",
+    "updatedAt": "2026-06-24T06:04:42.631Z",
+    "rating": 5,
+    "date": 1782281082631,
+    "clientName": "Marcus Aurelius",
+    "companyName": "Meditation Apps Ltd",
+    "feedback": "The team at JAC MediaLand exceeded our expectations. They redesigned our interface, dramatically improved our performance scores, and simplified our administration workflow.",
+    "clientPhoto": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&h=150&q=80"
+  }
+]

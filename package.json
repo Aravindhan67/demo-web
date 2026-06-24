@@ -1,0 +1,19 @@
+{
+  "name": "jac-medialand-root",
+  "private": true,
+  "version": "1.0.0",
+  "description": "JAC MediaLand Website & Admin Panel Workspace",
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server && npm install --prefix admin",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:admin": "npm run dev --prefix admin",
+    "seed": "node database/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.3.1"
+  }
+}

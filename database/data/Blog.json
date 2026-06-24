@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "b08hh7r",
+    "createdAt": "2026-06-24T06:04:42.627Z",
+    "updatedAt": "2026-06-24T06:04:42.627Z",
+    "publishDate": "2026-06-20T00:00:00.000Z",
+    "status": "Published",
+    "title": "Mastering Styled Components in 2026",
+    "featuredImage": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80",
+    "category": "Design & Code",
+    "author": "John Smith",
+    "description": "A deep-dive tutorial explaining modern design systems, clean CSS architecture, and advanced styled-components strategies in React 19."
+  },
+  {
+    "_id": "728xmy2",
+    "createdAt": "2026-06-24T06:04:42.630Z",
+    "updatedAt": "2026-06-24T06:04:42.630Z",
+    "publishDate": "2026-06-24T00:00:00.000Z",
+    "status": "Draft",
+    "title": "Leveraging Headless CMS Architecture for Speed",
+    "featuredImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    "category": "Technology",
+    "author": "Jane Doe",
+    "description": "Why decouped frontends and headless backend CMS portals are dominating modern web design and driving faster SEO scores."
+  }
+]

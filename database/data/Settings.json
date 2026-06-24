@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "p82scmq",
+    "createdAt": "2026-06-24T06:04:42.636Z",
+    "updatedAt": "2026-06-24T06:04:42.636Z",
+    "logoUrl": "",
+    "faviconUrl": "",
+    "companyName": "JAC MediaLand",
+    "email": "info@jacmedialand.com",
+    "phoneNumber": "+1 (555) 123-4567",
+    "address": "100 Silicon Valley Way, Suite 400, San Jose, CA",
+    "footerContent": "© 2026 JAC MediaLand. IT Solutions. All rights reserved.",
+    "socialMediaLinks": {
+      "linkedin": "https://linkedin.com/company/jacmedialand",
+      "twitter": "https://twitter.com/jacmedialand",
+      "facebook": "https://facebook.com/jacmedialand",
+      "instagram": "https://instagram.com/jacmedialand"
+    }
+  }
+]

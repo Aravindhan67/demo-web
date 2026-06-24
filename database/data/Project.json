@@ -1,0 +1,45 @@
+[
+  {
+    "_id": "07ym6of",
+    "createdAt": "2026-06-24T06:04:42.609Z",
+    "updatedAt": "2026-06-24T06:04:42.609Z",
+    "projectDate": "2026-05-15T00:00:00.000Z",
+    "status": "Completed",
+    "title": "JAC MediaLand Website Redesign",
+    "category": "Web Development",
+    "description": "A complete redesign and migration of JAC MediaLand brand site to a highly responsive, modern glassmorphic interface.",
+    "clientName": "JAC MediaLand Group",
+    "technologiesUsed": [
+      "React",
+      "TypeScript",
+      "Styled Components",
+      "Vite"
+    ],
+    "thumbnailImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=800&q=80"
+    ],
+    "projectUrl": "https://jacmedialand.com"
+  },
+  {
+    "_id": "66dqytf",
+    "createdAt": "2026-06-24T06:04:42.612Z",
+    "updatedAt": "2026-06-24T06:04:42.612Z",
+    "projectDate": "2026-04-10T00:00:00.000Z",
+    "status": "In Progress",
+    "title": "E-Commerce Platform for Fashion Retailer",
+    "category": "App Development",
+    "description": "Scalable mobile-first commerce experience featuring fast checkouts, live catalog searches, and robust inventory management integrations.",
+    "clientName": "Vogue Boutique",
+    "technologiesUsed": [
+      "React Native",
+      "Node.js",
+      "Express",
+      "MongoDB"
+    ],
+    "thumbnailImage": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+    "galleryImages": [],
+    "projectUrl": ""
+  }
+]

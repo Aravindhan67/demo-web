@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "q7qaebf",
+    "createdAt": "2026-06-24T06:04:42.623Z",
+    "updatedAt": "2026-06-24T06:04:42.623Z",
+    "uploadDate": 1782281082623,
+    "photoUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    "title": "Developer Workspace Setup",
+    "description": "A sneak peek into our collaborative development environment featuring multiple high-refresh monitors and mechanic keyboards."
+  },
+  {
+    "_id": "iuvekb4",
+    "createdAt": "2026-06-24T06:04:42.626Z",
+    "updatedAt": "2026-06-24T06:04:42.626Z",
+    "uploadDate": 1782281082626,
+    "photoUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    "title": "Creative Brainstorming Session",
+    "description": "Our design and UI/UX team laying out wireframes for our upcoming web platform project."
+  }
+]
