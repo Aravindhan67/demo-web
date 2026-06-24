@@ -13,7 +13,19 @@ import Activity from '../models/Activity.js';
 
 const router = express.Router();
 
-const upload = multer({ dest: './uploads/' });
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'jac_resumes',
+    resource_type: 'raw', // needed for pdfs/docs
+    allowed_formats: ['pdf', 'doc', 'docx']
+  }
+});
+
+const upload = multer({ storage });
 
 // Helper to log activities
 const logActivity = async (action, description) => {

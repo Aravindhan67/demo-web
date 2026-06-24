@@ -42,33 +42,27 @@ import {
 
 const router = express.Router();
 
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 // Multer Config for File Uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = './uploads';
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'jac_uploads',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif']
+    // Note: Cloudinary restricts some formats like svg/ico for security by default unless configured in their dashboard.
   }
 });
 
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|webp|gif|svg\+xml|svg|ico/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-    if (extname && mimetype) {
-      return cb(null, true);
-    } else {
-      cb(new Error('Images and icons only!'));
-    }
-  }
-});
+const upload = multer({ storage });
 
 // Stats Route
 router.get('/stats', protect, getDashboardStats);
@@ -78,7 +72,8 @@ router.post('/upload', protect, upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
-  const fileUrl = `/uploads/${req.file.filename}`;
+  // req.file.path will hold the secure Cloudinary URL (https://...)
+  const fileUrl = req.file.path;
   res.status(201).json({ url: fileUrl });
 });
 
