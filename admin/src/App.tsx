@@ -6,12 +6,15 @@ import DashboardLayout from './layouts/DashboardLayout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
+import ProjectForm from './pages/ProjectForm';
 import Services from './pages/Services';
+import ServiceForm from './pages/ServiceForm';
 import Team from './pages/Team';
 import TeamForm from './pages/TeamForm';
 import Contacts from './pages/Contacts';
 import Settings from './pages/Settings';
 import Programs from './pages/Programs';
+import ProgramForm from './pages/ProgramForm';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -69,10 +72,42 @@ const App: React.FC = () => {
             } 
           />
           <Route 
+            path="/projects/new" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ProjectForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/projects/edit/:id" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ProjectForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
             path="/services" 
             element={
               <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                 <Services />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/services/new" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ServiceForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/services/edit/:id" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ServiceForm />
               </ProtectedRoute>
             } 
           />
@@ -105,6 +140,22 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                 <Programs />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/programs/new" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ProgramForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/programs/edit/:id" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <ProgramForm />
               </ProtectedRoute>
             } 
           />

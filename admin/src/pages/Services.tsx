@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import * as FaIcons from 'react-icons/fa';
@@ -126,88 +127,6 @@ const IconPreview = styled.div`
   background: ${({ theme }) => theme.sidebarActiveBg};
 `;
 
-// Modal Styles
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-`;
-
-const ModalContent = styled.div`
-  background: ${({ theme }) => theme.body};
-  border: 1px solid ${({ theme }) => theme.cardBorder};
-  border-radius: 16px;
-  width: 100%;
-  max-width: 500px;
-  padding: 2rem;
-  box-shadow: ${({ theme }) => theme.shadow};
-`;
-
-const ModalHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-`;
-
-const Label = styled.label`
-  font-size: 0.85rem;
-  font-weight: 600;
-`;
-
-const Input = styled.input`
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.inputBg};
-  color: ${({ theme }) => theme.text};
-`;
-
-const TextArea = styled.textarea`
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.inputBg};
-  color: ${({ theme }) => theme.text};
-  min-height: 80px;
-  resize: vertical;
-`;
-
-const SaveButton = styled.button`
-  padding: 0.75rem;
-  background: ${({ theme }) => theme.primary};
-  color: ${({ theme }) => theme.primaryText};
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.primaryHover};
-  }
-`;
-
 const DynamicFaIcon = ({ name }: { name: string }) => {
   const IconComponent = (FaIcons as any)[name];
   if (!IconComponent) return <FaIcons.FaQuestion />;
@@ -217,14 +136,7 @@ const DynamicFaIcon = ({ name }: { name: string }) => {
 const Services: React.FC = () => {
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-
-  // Form states
-  const [name, setName] = useState('');
-  const [icon, setIcon] = useState('FaCode');
-  const [description, setDescription] = useState('');
-  const [createdDate, setCreatedDate] = useState('');
+  const navigate = useNavigate();
 
   const fetchServices = async () => {
     try {
@@ -242,47 +154,20 @@ const Services: React.FC = () => {
   }, []);
 
   const handleOpenAdd = () => {
-    setEditingId(null);
-    setName('');
-    setIcon('FaCode');
-    setDescription('');
-    setCreatedDate(new Date().toISOString().substring(0, 10));
-    setIsModalOpen(true);
+    navigate('/services/new');
   };
 
-  const handleOpenEdit = (serv: any) => {
-    setEditingId(serv._id);
-    setName(serv.name);
-    setIcon(serv.icon);
-    setDescription(serv.description);
-    setCreatedDate(serv.createdDate ? serv.createdDate.substring(0, 10) : '');
-    setIsModalOpen(true);
+  const handleOpenEdit = (srv: any) => {
+    navigate(`/services/edit/${srv._id}`, { state: { service: srv } });
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this service?')) return;
+    if (!window.confirm('Delete this service?')) return;
     try {
       await api.delete('services', id);
       fetchServices();
     } catch (err) {
       alert('Delete failed');
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const payload = { name, icon, description, createdDate };
-
-    try {
-      if (editingId) {
-        await api.update('services', editingId, payload);
-      } else {
-        await api.create('services', payload);
-      }
-      setIsModalOpen(false);
-      fetchServices();
-    } catch (err) {
-      alert('Save failed');
     }
   };
 
@@ -300,59 +185,30 @@ const Services: React.FC = () => {
         <div>Loading services...</div>
       ) : (
         <Grid>
-          {services.map((serv) => (
-            <GlassCard key={serv._id}>
+          {services.map((srv) => (
+            <GlassCard key={srv._id}>
               <CardActions>
-                <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(serv)}>
+                <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(srv)}>
                   <FaEdit />
                 </IconButton>
-                <IconButton $color="#ef4444" onClick={() => handleDelete(serv._id)}>
+                <IconButton $color="#ef4444" onClick={() => handleDelete(srv._id)}>
                   <FaTrash />
                 </IconButton>
               </CardActions>
+              
               <IconPreview>
-                <DynamicFaIcon name={serv.icon} />
+                <DynamicFaIcon name={srv.icon} />
               </IconPreview>
-              <ServiceTitle>{serv.name}</ServiceTitle>
-              <ServiceDesc>{serv.description}</ServiceDesc>
+              
+              <ServiceTitle>{srv.name}</ServiceTitle>
+              <ServiceDesc>{srv.description}</ServiceDesc>
+              
               <MetaInfo>
-                <span>Created: {new Date(serv.createdDate).toLocaleDateString()}</span>
+                <span>Created: {srv.createdDate ? new Date(srv.createdDate).toLocaleDateString() : 'N/A'}</span>
               </MetaInfo>
             </GlassCard>
           ))}
         </Grid>
-      )}
-
-      {isModalOpen && (
-        <ModalOverlay onClick={() => setIsModalOpen(false)}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <ModalHeader>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700 }}>
-                {editingId ? 'Edit Service details' : 'Add New Service'}
-              </h3>
-              <button style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }} onClick={() => setIsModalOpen(false)}>&times;</button>
-            </ModalHeader>
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <Label>Service Name</Label>
-                <Input type="text" value={name} onChange={e => setName(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Service Icon (FontAwesome name, e.g. FaCode, FaPaintBrush, FaBullhorn)</Label>
-                <Input type="text" value={icon} onChange={e => setIcon(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Description</Label>
-                <TextArea value={description} onChange={e => setDescription(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Created Date</Label>
-                <Input type="date" value={createdDate} onChange={e => setCreatedDate(e.target.value)} />
-              </FormGroup>
-              <SaveButton type="submit">Save Service</SaveButton>
-            </Form>
-          </ModalContent>
-        </ModalOverlay>
       )}
     </Container>
   );
