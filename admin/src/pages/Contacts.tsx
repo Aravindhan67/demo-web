@@ -53,8 +53,15 @@ const TableCard = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
 `;
 
+const TableContainer = styled.div`
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+`;
+
 const Table = styled.table`
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
   text-align: left;
 `;
@@ -210,41 +217,43 @@ const Contacts: React.FC = () => {
         {loading ? (
           <div>Loading contact enquiries...</div>
         ) : (
-          <Table>
-            <thead>
-              <tr>
-                <Th>Name</Th>
-                <Th>Email</Th>
-                <Th>Mobile</Th>
-                <Th>Subject</Th>
-                <Th>Date</Th>
-                <Th>Actions</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((c) => (
-                <tr key={c._id}>
-                  <Td style={{ fontWeight: 600 }}>{c.name}</Td>
-                  <Td>{c.email}</Td>
-                  <Td>{c.mobileNumber || 'N/A'}</Td>
-                  <Td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {c.subject || 'No Subject'}
-                  </Td>
-                  <Td>{new Date(c.createdAt).toLocaleString()}</Td>
-                  <Td>
-                    <ActionGroup>
-                      <IconButton $color="#3b82f6" onClick={() => setSelectedEnquiry(c)}>
-                        <FaEye />
-                      </IconButton>
-                      <IconButton $color="#ef4444" onClick={() => handleDelete(c._id)}>
-                        <FaTrash />
-                      </IconButton>
-                    </ActionGroup>
-                  </Td>
+          <TableContainer>
+            <Table>
+              <thead>
+                <tr>
+                  <Th>Name</Th>
+                  <Th>Email</Th>
+                  <Th>Mobile</Th>
+                  <Th>Subject</Th>
+                  <Th>Date</Th>
+                  <Th>Actions</Th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {contacts.map((c) => (
+                  <tr key={c._id}>
+                    <Td style={{ fontWeight: 600 }}>{c.name}</Td>
+                    <Td>{c.email}</Td>
+                    <Td>{c.mobileNumber || 'N/A'}</Td>
+                    <Td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {c.subject || 'No Subject'}
+                    </Td>
+                    <Td>{new Date(c.createdAt).toLocaleString()}</Td>
+                    <Td>
+                      <ActionGroup>
+                        <IconButton $color="#3b82f6" onClick={() => setSelectedEnquiry(c)}>
+                          <FaEye />
+                        </IconButton>
+                        <IconButton $color="#ef4444" onClick={() => handleDelete(c._id)}>
+                          <FaTrash />
+                        </IconButton>
+                      </ActionGroup>
+                    </Td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </TableContainer>
         )}
       </TableCard>
 

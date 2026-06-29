@@ -6,7 +6,6 @@ import DashboardLayout from './layouts/DashboardLayout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
-import Gallery from './pages/Gallery';
 import Services from './pages/Services';
 import Team from './pages/Team';
 import TeamForm from './pages/TeamForm';
@@ -68,14 +67,6 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                 <Projects />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/gallery" 
-            element={
-              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
-                <Gallery />
               </ProtectedRoute>
             } 
           />

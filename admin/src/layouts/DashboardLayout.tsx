@@ -241,7 +241,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, t
   const menuItems = [
     { label: 'Dashboard', path: '/dashboard', icon: <FaTachometerAlt /> },
     { label: 'Projects', path: '/projects', icon: <FaFolderOpen /> },
-    { label: 'Gallery', path: '/gallery', icon: <FaImages /> },
     { label: 'Services', path: '/services', icon: <FaConciergeBell /> },
     { label: 'Team Members', path: '/team', icon: <FaUsers /> },
     { label: 'Programs', path: '/programs', icon: <FaGraduationCap /> },

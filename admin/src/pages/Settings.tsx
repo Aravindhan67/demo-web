@@ -21,6 +21,10 @@ const GlassCard = styled.div`
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: ${({ theme }) => theme.shadow};
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const Form = styled.form`
