@@ -42,6 +42,10 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const GlassCard = styled.div`
@@ -143,6 +147,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1rem;
 `;
 
 const ModalContent = styled.div`

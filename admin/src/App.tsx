@@ -9,6 +9,7 @@ import Projects from './pages/Projects';
 import Gallery from './pages/Gallery';
 import Services from './pages/Services';
 import Team from './pages/Team';
+import TeamForm from './pages/TeamForm';
 import Blog from './pages/Blog';
 import Testimonials from './pages/Testimonials';
 import Contacts from './pages/Contacts';
@@ -91,6 +92,22 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                 <Team />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/team/new" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <TeamForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/team/edit/:id" 
+            element={
+              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                <TeamForm />
               </ProtectedRoute>
             } 
           />

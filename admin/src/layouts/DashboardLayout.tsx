@@ -16,6 +16,22 @@ const LayoutWrapper = styled.div`
   min-height: 100vh;
 `;
 
+const Overlay = styled.div<{ $isOpen: boolean }>`
+  display: none;
+  
+  @media (max-width: 992px) {
+    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+    backdrop-filter: blur(2px);
+  }
+`;
+
 const Sidebar = styled.aside<SidebarProps>`
   width: 280px;
   background: ${({ theme }) => theme.sidebarBg};
@@ -33,6 +49,7 @@ const Sidebar = styled.aside<SidebarProps>`
     height: 100vh;
     left: ${({ $isOpen }) => ($isOpen ? '0' : '-280px')};
     top: 0;
+    box-shadow: ${({ $isOpen }) => ($isOpen ? '4px 0 24px rgba(0,0,0,0.15)' : 'none')};
   }
 `;
 
@@ -92,6 +109,10 @@ const Topbar = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 
 const MenuButton = styled.button`
@@ -112,6 +133,10 @@ const TopbarRight = styled.div`
   align-items: center;
   gap: 1.5rem;
   margin-left: auto;
+
+  @media (max-width: 576px) {
+    gap: 0.75rem;
+  }
 `;
 
 const ThemeToggler = styled.button`
@@ -172,6 +197,11 @@ const PageBody = styled.div`
   flex-grow: 1;
   background: ${({ theme }) => theme.body};
   overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const LogoutButton = styled.button`
@@ -229,6 +259,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, t
 
   return (
     <LayoutWrapper>
+      <Overlay $isOpen={sidebarOpen} onClick={() => setSidebarOpen(false)} />
       <Sidebar $isOpen={sidebarOpen}>
         <div>
           <SidebarBrand>

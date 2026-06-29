@@ -42,6 +42,10 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const GlassCard = styled.div`
@@ -122,6 +126,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1rem;
 `;
 
 const ModalContent = styled.div`
@@ -132,6 +137,10 @@ const ModalContent = styled.div`
   max-width: 500px;
   padding: 2rem;
   box-shadow: ${({ theme }) => theme.shadow};
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const ModalHeader = styled.div`

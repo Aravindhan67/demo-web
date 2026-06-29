@@ -13,6 +13,12 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -117,6 +123,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1rem;
 `;
 
 const ModalContent = styled.div`

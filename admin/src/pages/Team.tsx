@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaPlus, FaEdit, FaTrash, FaLinkedin, FaTwitter, FaGithub, FaFacebook } from 'react-icons/fa';
 import { api } from '../services/api';
@@ -13,6 +14,12 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -42,6 +49,10 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const GlassCard = styled.div`
@@ -125,96 +136,10 @@ const IconButton = styled.button<{ $color: string }>`
   }
 `;
 
-// Modal Styles
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-`;
-
-const ModalContent = styled.div`
-  background: ${({ theme }) => theme.body};
-  border: 1px solid ${({ theme }) => theme.cardBorder};
-  border-radius: 16px;
-  width: 100%;
-  max-width: 550px;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 2.5rem;
-  box-shadow: ${({ theme }) => theme.shadow};
-`;
-
-const ModalHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-`;
-
-const Label = styled.label`
-  font-size: 0.85rem;
-  font-weight: 600;
-`;
-
-const Input = styled.input`
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.inputBg};
-  color: ${({ theme }) => theme.text};
-`;
-
-const SaveButton = styled.button`
-  padding: 0.75rem;
-  background: ${({ theme }) => theme.primary};
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.primaryHover};
-  }
-`;
-
 const Team: React.FC = () => {
   const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-
-  // Form states
-  const [employeeName, setEmployeeName] = useState('');
-  const [designation, setDesignation] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [joiningDate, setJoiningDate] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [github, setGithub] = useState('');
-  const [facebook, setFacebook] = useState('');
+  const navigate = useNavigate();
 
   const fetchTeam = async () => {
     try {
@@ -232,33 +157,11 @@ const Team: React.FC = () => {
   }, []);
 
   const handleOpenAdd = () => {
-    setEditingId(null);
-    setEmployeeName('');
-    setDesignation('');
-    setEmail('');
-    setMobileNumber('');
-    setJoiningDate(new Date().toISOString().substring(0, 10));
-    setProfilePhoto('');
-    setLinkedin('');
-    setTwitter('');
-    setGithub('');
-    setFacebook('');
-    setIsModalOpen(true);
+    navigate('/team/new');
   };
 
   const handleOpenEdit = (m: any) => {
-    setEditingId(m._id);
-    setEmployeeName(m.employeeName);
-    setDesignation(m.designation);
-    setEmail(m.email);
-    setMobileNumber(m.mobileNumber || '');
-    setJoiningDate(m.joiningDate ? m.joiningDate.substring(0, 10) : '');
-    setProfilePhoto(m.profilePhoto || '');
-    setLinkedin(m.socialMediaLinks?.linkedin || '');
-    setTwitter(m.socialMediaLinks?.twitter || '');
-    setGithub(m.socialMediaLinks?.github || '');
-    setFacebook(m.socialMediaLinks?.facebook || '');
-    setIsModalOpen(true);
+    navigate(`/team/edit/${m._id}`, { state: { member: m } });
   };
 
   const handleDelete = async (id: string) => {
@@ -268,44 +171,6 @@ const Team: React.FC = () => {
       fetchTeam();
     } catch (err) {
       alert('Delete failed');
-    }
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('image', file);
-    try {
-      const res = await api.upload(formData);
-      setProfilePhoto(res.url);
-    } catch (err: any) {
-      alert(err.message || 'File upload failed');
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const payload = {
-      employeeName,
-      designation,
-      email,
-      mobileNumber,
-      joiningDate,
-      profilePhoto,
-      socialMediaLinks: { linkedin, twitter, github, facebook }
-    };
-
-    try {
-      if (editingId) {
-        await api.update('team', editingId, payload);
-      } else {
-        await api.create('team', payload);
-      }
-      setIsModalOpen(false);
-      fetchTeam();
-    } catch (err) {
-      alert('Save failed');
     }
   };
 
@@ -358,66 +223,6 @@ const Team: React.FC = () => {
             </GlassCard>
           ))}
         </Grid>
-      )}
-
-      {isModalOpen && (
-        <ModalOverlay onClick={() => setIsModalOpen(false)}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <ModalHeader>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700 }}>
-                {editingId ? 'Edit Team Member Details' : 'Add Team Member'}
-              </h3>
-              <button style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }} onClick={() => setIsModalOpen(false)}>&times;</button>
-            </ModalHeader>
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <Label>Employee Name</Label>
-                <Input type="text" value={employeeName} onChange={e => setEmployeeName(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Designation</Label>
-                <Input type="text" value={designation} onChange={e => setDesignation(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Profile Photo URL / Upload</Label>
-                <Input type="text" value={profilePhoto} onChange={e => setProfilePhoto(e.target.value)} placeholder="https://..." />
-                <Input type="file" onChange={handleFileUpload} />
-              </FormGroup>
-              <FormGroup>
-                <Label>Email</Label>
-                <Input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-              </FormGroup>
-              <FormGroup>
-                <Label>Mobile Number</Label>
-                <Input type="tel" value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} />
-              </FormGroup>
-              <FormGroup>
-                <Label>Joining Date</Label>
-                <Input type="date" value={joiningDate} onChange={e => setJoiningDate(e.target.value)} />
-              </FormGroup>
-              
-              <h4 style={{ marginTop: '0.5rem', fontSize: '0.9rem', fontWeight: 700 }}>Social Media Links</h4>
-              <FormGroup>
-                <Label>LinkedIn</Label>
-                <Input type="url" value={linkedin} onChange={e => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/..." />
-              </FormGroup>
-              <FormGroup>
-                <Label>Twitter</Label>
-                <Input type="url" value={twitter} onChange={e => setTwitter(e.target.value)} placeholder="https://twitter.com/..." />
-              </FormGroup>
-              <FormGroup>
-                <Label>GitHub</Label>
-                <Input type="url" value={github} onChange={e => setGithub(e.target.value)} placeholder="https://github.com/..." />
-              </FormGroup>
-              <FormGroup>
-                <Label>Facebook</Label>
-                <Input type="url" value={facebook} onChange={e => setFacebook(e.target.value)} placeholder="https://facebook.com/..." />
-              </FormGroup>
-
-              <SaveButton type="submit">Save Member</SaveButton>
-            </Form>
-          </ModalContent>
-        </ModalOverlay>
       )}
     </Container>
   );
