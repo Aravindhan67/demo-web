@@ -166,7 +166,7 @@ const Settings: React.FC = () => {
     };
 
     try {
-      await api.update('settings', '', payload);
+      await api.updateSettings(payload);
       alert('Settings updated successfully!');
     } catch (err) {
       alert('Update failed');

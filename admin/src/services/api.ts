@@ -80,5 +80,7 @@ export const api = {
 
   // Website Settings
   getSettings: () =>
-    apiFetch('/api/admin/settings')
+    apiFetch('/api/admin/settings'),
+  updateSettings: (payload: Record<string, unknown>) =>
+    apiFetch('/api/admin/settings', { method: 'PUT', body: JSON.stringify(payload) })
 };
