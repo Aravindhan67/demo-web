@@ -79,7 +79,7 @@ const Button = styled.button`
   border-radius: 10px;
   border: none;
   background: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.primaryText};
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;

@@ -1,47 +1,49 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const lightTheme = {
-  body: '#f4f6fc',
-  text: '#1e293b',
+  body: '#f8fafc',
+  text: '#0f172a',
   textLight: '#64748b',
-  cardBg: 'rgba(255, 255, 255, 0.75)',
-  cardBorder: 'rgba(255, 255, 255, 0.5)',
-  sidebarBg: 'rgba(255, 255, 255, 0.8)',
-  sidebarActiveBg: 'rgba(59, 130, 246, 0.15)',
-  sidebarActiveText: '#2563eb',
-  shadow: '0 8px 32px 0 rgba(31, 38, 135, 0.05)',
-  glassBlur: 'blur(16px)',
-  primary: '#2563eb',
-  primaryHover: '#1d4ed8',
+  cardBg: '#ffffff',
+  cardBorder: '#e2e8f0',
+  sidebarBg: '#ffffff',
+  sidebarActiveBg: '#f1f5f9',
+  sidebarActiveText: '#0f172a',
+  shadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+  glassBlur: 'none',
+  primary: '#0f172a',
+  primaryHover: '#334155',
+  primaryText: '#ffffff',
   danger: '#ef4444',
   success: '#10b981',
   warning: '#f59e0b',
-  borderColor: 'rgba(226, 232, 240, 0.8)',
+  borderColor: '#e2e8f0',
   inputBg: '#ffffff',
-  scrollTrack: '#f1f5f9',
+  scrollTrack: '#f8fafc',
   scrollThumb: '#cbd5e1'
 };
 
 export const darkTheme = {
-  body: '#0b111e',
-  text: '#f8fafc',
-  textLight: '#94a3b8',
-  cardBg: 'rgba(15, 23, 42, 0.65)',
-  cardBorder: 'rgba(255, 255, 255, 0.05)',
-  sidebarBg: 'rgba(15, 23, 42, 0.8)',
-  sidebarActiveBg: 'rgba(59, 130, 246, 0.25)',
-  sidebarActiveText: '#60a5fa',
-  shadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
-  glassBlur: 'blur(16px)',
-  primary: '#3b82f6',
-  primaryHover: '#2563eb',
-  danger: '#f87171',
-  success: '#34d399',
+  body: '#09090b',
+  text: '#fafafa',
+  textLight: '#a1a1aa',
+  cardBg: '#18181b',
+  cardBorder: '#27272a',
+  sidebarBg: '#09090b',
+  sidebarActiveBg: '#27272a',
+  sidebarActiveText: '#fafafa',
+  shadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3)',
+  glassBlur: 'none',
+  primary: '#fafafa',
+  primaryHover: '#e4e4e7',
+  primaryText: '#09090b',
+  danger: '#ef4444',
+  success: '#10b981',
   warning: '#fbbf24',
-  borderColor: 'rgba(255, 255, 255, 0.08)',
-  inputBg: 'rgba(30, 41, 59, 0.5)',
-  scrollTrack: '#1e293b',
-  scrollThumb: '#475569'
+  borderColor: '#27272a',
+  inputBg: '#18181b',
+  scrollTrack: '#09090b',
+  scrollThumb: '#3f3f46'
 };
 
 export const GlobalStyles = createGlobalStyle<{ theme?: typeof lightTheme | typeof darkTheme }>`
@@ -49,21 +51,23 @@ export const GlobalStyles = createGlobalStyle<{ theme?: typeof lightTheme | type
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   body {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.2s ease, color 0.2s ease;
     overflow-x: hidden;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.scrollTrack};
@@ -73,14 +77,14 @@ export const GlobalStyles = createGlobalStyle<{ theme?: typeof lightTheme | type
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.textLight};
   }
 
   /* Smooth fading animations */
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(4px);
     }
     to {
       opacity: 1;
@@ -89,6 +93,6 @@ export const GlobalStyles = createGlobalStyle<{ theme?: typeof lightTheme | type
   }
 
   .animated-fade {
-    animation: fadeIn 0.4s ease forwards;
+    animation: fadeIn 0.3s ease forwards;
   }
 `;

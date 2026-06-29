@@ -32,7 +32,7 @@ const AddButton = styled.button`
   gap: 0.5rem;
   padding: 0.6rem 1.2rem;
   background: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.primaryText};
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -201,7 +201,7 @@ const TextArea = styled.textarea`
 const SaveButton = styled.button`
   padding: 0.75rem;
   background: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.primaryText};
   border: none;
   border-radius: 8px;
   font-weight: 600;

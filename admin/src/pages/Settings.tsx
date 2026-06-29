@@ -32,7 +32,7 @@ const SaveButton = styled.button`
   gap: 0.5rem;
   padding: 0.6rem 1.2rem;
   background: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.primaryText};
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -115,7 +115,7 @@ const FileInput = styled.input`
     border-radius: 6px;
     border: none;
     background: ${({ theme }) => theme.primary};
-    color: white;
+    color: ${({ theme }) => theme.primaryText};
     font-weight: 600;
     cursor: pointer;
     margin-right: 1rem;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { 
   FaFolderOpen, FaImages, FaConciergeBell, FaUsers, 
-  FaBlog, FaEnvelope, FaHistory 
+  FaEnvelope, FaHistory 
 } from 'react-icons/fa';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
@@ -30,7 +30,7 @@ const StatCard = styled.div`
   transition: transform 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadow};
   }
 `;
 
@@ -148,7 +148,6 @@ const Dashboard: React.FC = () => {
     { label: 'Gallery Images', value: stats?.counts?.gallery || 0, icon: <FaImages />, color: '#10b981' },
     { label: 'Team Members', value: stats?.counts?.team || 0, icon: <FaUsers />, color: '#8b5cf6' },
     { label: 'Total Services', value: stats?.counts?.services || 0, icon: <FaConciergeBell />, color: '#f59e0b' },
-    { label: 'Blog Posts', value: stats?.counts?.blog || 0, icon: <FaBlog />, color: '#ec4899' },
     { label: 'Contact Enquiries', value: stats?.counts?.contacts || 0, icon: <FaEnvelope />, color: '#3b82f6' }
   ];
 

@@ -31,7 +31,7 @@ const BackButton = styled(Link)`
 
   &:hover {
     background: ${({ theme }) => theme.primary};
-    color: white;
+    color: ${({ theme }) => theme.primaryText};
     transform: translateX(-4px);
   }
 `;
@@ -88,7 +88,7 @@ const Input = styled.input`
 const SaveButton = styled.button`
   padding: 0.75rem;
   background: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.primaryText};
   border: none;
   border-radius: 8px;
   font-weight: 600;

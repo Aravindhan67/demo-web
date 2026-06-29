@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { 
   FaTachometerAlt, FaFolderOpen, FaImages, FaConciergeBell, 
-  FaUsers, FaBlog, FaQuoteRight, FaEnvelope, FaSlidersH, 
+  FaUsers, FaEnvelope, FaSlidersH, 
   FaSignOutAlt, FaSun, FaMoon, FaBars, FaTimes, FaGraduationCap 
 } from 'react-icons/fa';
 
@@ -35,7 +35,6 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
 const Sidebar = styled.aside<SidebarProps>`
   width: 280px;
   background: ${({ theme }) => theme.sidebarBg};
-  backdrop-filter: ${({ theme }) => theme.glassBlur};
   border-right: 1px solid ${({ theme }) => theme.cardBorder};
   padding: 2rem 1.5rem;
   display: flex;
@@ -54,15 +53,14 @@ const Sidebar = styled.aside<SidebarProps>`
 `;
 
 const SidebarBrand = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: ${({ theme }) => theme.text};
   margin-bottom: 2.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  letter-spacing: -0.02em;
 `;
 
 const NavList = styled.nav`
@@ -76,20 +74,18 @@ const NavItem = styled(Link)<{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   color: ${({ $active, theme }) => ($active ? theme.sidebarActiveText : theme.textLight)};
   background: ${({ $active, theme }) => ($active ? theme.sidebarActiveBg : 'transparent')};
   transition: all 0.2s ease;
-  border: 1px solid ${({ $active, theme }) => ($active ? theme.cardBorder : 'transparent')};
 
   &:hover {
     color: ${({ theme }) => theme.text};
-    background: ${({ $active, theme }) => ($active ? theme.sidebarActiveBg : 'rgba(255,255,255,0.05)')};
-    transform: translateX(4px);
+    background: ${({ $active, theme }) => ($active ? theme.sidebarActiveBg : theme.scrollTrack)};
   }
 `;
 
@@ -101,10 +97,9 @@ const MainContent = styled.main`
 `;
 
 const Topbar = styled.header`
-  height: 70px;
+  height: 64px;
   background: ${({ theme }) => theme.cardBg};
-  backdrop-filter: ${({ theme }) => theme.glassBlur};
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.cardBorder};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -140,20 +135,20 @@ const TopbarRight = styled.div`
 `;
 
 const ThemeToggler = styled.button`
-  background: ${({ theme }) => theme.sidebarActiveBg};
+  background: ${({ theme }) => theme.scrollTrack};
   border: 1px solid ${({ theme }) => theme.cardBorder};
-  color: ${({ theme }) => theme.primary};
-  width: 40px;
-  height: 40px;
+  color: ${({ theme }) => theme.text};
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
 
   &:hover {
-    transform: scale(1.05);
+    background: ${({ theme }) => theme.borderColor};
   }
 `;
 
@@ -164,11 +159,11 @@ const UserProfile = styled.div`
 `;
 
 const UserAvatar = styled.div`
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
+  background: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.body};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,21 +203,20 @@ const LogoutButton = styled.button`
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   background: none;
   border: none;
   width: 100%;
   text-align: left;
   cursor: pointer;
   color: ${({ theme }) => theme.danger};
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
 
   &:hover {
     background: rgba(239, 68, 68, 0.1);
-    transform: translateX(4px);
   }
 `;
 
@@ -244,8 +238,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, t
     { label: 'Services', path: '/services', icon: <FaConciergeBell /> },
     { label: 'Team Members', path: '/team', icon: <FaUsers /> },
     { label: 'Programs', path: '/programs', icon: <FaGraduationCap /> },
-    { label: 'Blog Posts', path: '/blog', icon: <FaBlog /> },
-    { label: 'Testimonials', path: '/testimonials', icon: <FaQuoteRight /> },
     { label: 'Contact Enquiries', path: '/contacts', icon: <FaEnvelope /> },
     { label: 'Settings', path: '/settings', icon: <FaSlidersH /> }
   ];

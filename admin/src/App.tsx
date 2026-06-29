@@ -9,8 +9,6 @@ import Projects from './pages/Projects';
 import Services from './pages/Services';
 import Team from './pages/Team';
 import TeamForm from './pages/TeamForm';
-import Blog from './pages/Blog';
-import Testimonials from './pages/Testimonials';
 import Contacts from './pages/Contacts';
 import Settings from './pages/Settings';
 import Programs from './pages/Programs';
@@ -110,22 +108,7 @@ const App: React.FC = () => {
               </ProtectedRoute>
             } 
           />
-          <Route 
-            path="/blog" 
-            element={
-              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
-                <Blog />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/testimonials" 
-            element={
-              <ProtectedRoute darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
-                <Testimonials />
-              </ProtectedRoute>
-            } 
-          />
+
           <Route 
             path="/contacts" 
             element={
