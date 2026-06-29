@@ -45,38 +45,59 @@ const AddButton = styled.button`
   }
 `;
 
-const TableCard = styled.div`
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const GlassCard = styled.div`
   background: ${({ theme }) => theme.cardBg};
   backdrop-filter: ${({ theme }) => theme.glassBlur};
   border: 1px solid ${({ theme }) => theme.cardBorder};
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: ${({ theme }) => theme.shadow};
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-`;
-
-const Th = styled.th`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  color: ${({ theme }) => theme.textLight};
-  font-weight: 600;
-  font-size: 0.85rem;
-`;
-
-const Td = styled.td`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  font-size: 0.9rem;
-`;
-
-const ActionGroup = styled.div`
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  position: relative;
+`;
+
+const ServiceTitle = styled.h3`
+  font-size: 1.15rem;
+  font-weight: 700;
+`;
+
+const ServiceDesc = styled.p`
+  font-size: 0.85rem;
+  color: ${({ theme }) => theme.textLight};
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const MetaInfo = styled.div`
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.textLight};
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
+
+const CardActions = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.25rem;
 `;
 
 const IconButton = styled.button<{ $color: string }>`
@@ -275,49 +296,32 @@ const Services: React.FC = () => {
         </AddButton>
       </Header>
 
-      <TableCard>
-        {loading ? (
-          <div>Loading services...</div>
-        ) : (
-          <Table>
-            <thead>
-              <tr>
-                <Th>Icon</Th>
-                <Th>Service Name</Th>
-                <Th>Description</Th>
-                <Th>Created Date</Th>
-                <Th>Actions</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {services.map((serv) => (
-                <tr key={serv._id}>
-                  <Td>
-                    <IconPreview>
-                      <DynamicFaIcon name={serv.icon} />
-                    </IconPreview>
-                  </Td>
-                  <Td style={{ fontWeight: 600 }}>{serv.name}</Td>
-                  <Td style={{ maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {serv.description}
-                  </Td>
-                  <Td>{new Date(serv.createdDate).toLocaleDateString()}</Td>
-                  <Td>
-                    <ActionGroup>
-                      <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(serv)}>
-                        <FaEdit />
-                      </IconButton>
-                      <IconButton $color="#ef4444" onClick={() => handleDelete(serv._id)}>
-                        <FaTrash />
-                      </IconButton>
-                    </ActionGroup>
-                  </Td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </TableCard>
+      {loading ? (
+        <div>Loading services...</div>
+      ) : (
+        <Grid>
+          {services.map((serv) => (
+            <GlassCard key={serv._id}>
+              <CardActions>
+                <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(serv)}>
+                  <FaEdit />
+                </IconButton>
+                <IconButton $color="#ef4444" onClick={() => handleDelete(serv._id)}>
+                  <FaTrash />
+                </IconButton>
+              </CardActions>
+              <IconPreview>
+                <DynamicFaIcon name={serv.icon} />
+              </IconPreview>
+              <ServiceTitle>{serv.name}</ServiceTitle>
+              <ServiceDesc>{serv.description}</ServiceDesc>
+              <MetaInfo>
+                <span>Created: {new Date(serv.createdDate).toLocaleDateString()}</span>
+              </MetaInfo>
+            </GlassCard>
+          ))}
+        </Grid>
+      )}
 
       {isModalOpen && (
         <ModalOverlay onClick={() => setIsModalOpen(false)}>

@@ -44,38 +44,51 @@ const AddButton = styled.button`
   }
 `;
 
-const TableCard = styled.div`
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const GlassCard = styled.div`
   background: ${({ theme }) => theme.cardBg};
   backdrop-filter: ${({ theme }) => theme.glassBlur};
   border: 1px solid ${({ theme }) => theme.cardBorder};
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: ${({ theme }) => theme.shadow};
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-`;
-
-const Th = styled.th`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  color: ${({ theme }) => theme.textLight};
-  font-weight: 600;
-  font-size: 0.85rem;
-`;
-
-const Td = styled.td`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  font-size: 0.9rem;
-`;
-
-const ActionGroup = styled.div`
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  position: relative;
+`;
+
+const ProgramTitle = styled.h3`
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+`;
+
+const MetaInfo = styled.div`
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.textLight};
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
+
+const CardActions = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.25rem;
 `;
 
 const IconButton = styled.button<{ $color: string }>`
@@ -302,54 +315,37 @@ const Programs: React.FC = () => {
         </AddButton>
       </Header>
 
-      <TableCard>
-        {loading ? (
-          <div>Loading programs...</div>
-        ) : (
-          <Table>
-            <thead>
-              <tr>
-                <Th>Title</Th>
-                <Th>Kind</Th>
-                <Th>Launch Info</Th>
-                <Th>Status</Th>
-                <Th>Actions</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {programs.map((prog) => (
-                <tr key={prog._id}>
-                  <Td style={{ fontWeight: 600 }}>{prog.title}</Td>
-                  <Td>
-                    <Badge $kind={prog.kind}>
-                      {prog.kind === 'active' ? 'Active' : 'Upcoming'}
-                    </Badge>
-                  </Td>
-                  <Td>{prog.launch}</Td>
-                  <Td>{prog.status}</Td>
-                  <Td>
-                    <ActionGroup>
-                      <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(prog)}>
-                        <FaEdit />
-                      </IconButton>
-                      <IconButton $color="#ef4444" onClick={() => handleDelete(prog._id)}>
-                        <FaTrash />
-                      </IconButton>
-                    </ActionGroup>
-                  </Td>
-                </tr>
-              ))}
-              {programs.length === 0 && (
-                <tr>
-                  <Td colSpan={5} style={{ textAlign: 'center', color: '#888' }}>
-                    No programs found. Add your first program to get started.
-                  </Td>
-                </tr>
-              )}
-            </tbody>
-          </Table>
-        )}
-      </TableCard>
+      {loading ? (
+        <div>Loading programs...</div>
+      ) : (
+        <Grid>
+          {programs.map((prog) => (
+            <GlassCard key={prog._id}>
+              <CardActions>
+                <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(prog)}>
+                  <FaEdit />
+                </IconButton>
+                <IconButton $color="#ef4444" onClick={() => handleDelete(prog._id)}>
+                  <FaTrash />
+                </IconButton>
+              </CardActions>
+              <ProgramTitle>{prog.title}</ProgramTitle>
+              <Badge $kind={prog.kind}>
+                {prog.kind === 'active' ? 'Active' : 'Upcoming'}
+              </Badge>
+              <MetaInfo>
+                <span>Launch: {prog.launch}</span>
+                <span>Status: {prog.status}</span>
+              </MetaInfo>
+            </GlassCard>
+          ))}
+          {programs.length === 0 && (
+            <div style={{ textAlign: 'center', color: '#888', gridColumn: '1 / -1' }}>
+              No programs found. Add your first program to get started.
+            </div>
+          )}
+        </Grid>
+      )}
 
       {isModalOpen && (
         <ModalOverlay onClick={() => setIsModalOpen(false)}>
