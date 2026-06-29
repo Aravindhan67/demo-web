@@ -14,6 +14,7 @@ declare module 'styled-components' {
     glassBlur: string;
     primary: string;
     primaryHover: string;
+    primaryText: string;
     danger: string;
     success: string;
     warning: string;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { 
-  FaTachometerAlt, FaFolderOpen, FaImages, FaConciergeBell, 
+  FaTachometerAlt, FaFolderOpen, FaConciergeBell, 
   FaUsers, FaEnvelope, FaSlidersH, 
   FaSignOutAlt, FaSun, FaMoon, FaBars, FaTimes, FaGraduationCap 
 } from 'react-icons/fa';

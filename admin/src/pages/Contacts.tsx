@@ -112,10 +112,6 @@ const CardActions = styled.div`
   gap: 0.25rem;
 `;
 
-const ActionGroup = styled.div`
-  display: flex;
-  gap: 0.5rem;
-`;
 
 const IconButton = styled.button<{ $color: string }>`
   background: none;
