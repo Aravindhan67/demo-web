@@ -44,6 +44,16 @@ const AddButton = styled.button`
   }
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 const GlassCard = styled.div`
   background: ${({ theme }) => theme.cardBg};
   backdrop-filter: ${({ theme }) => theme.glassBlur};
@@ -51,40 +61,40 @@ const GlassCard = styled.div`
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: ${({ theme }) => theme.shadow};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  position: relative;
 `;
 
-const TableContainer = styled.div`
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  min-width: 700px;
-`;
-
-const Th = styled.th`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  color: ${({ theme }) => theme.textLight};
-  font-weight: 600;
-  font-size: 0.85rem;
-`;
-
-const Td = styled.td`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  font-size: 0.9rem;
-`;
-
-const Thumbnail = styled.img`
-  width: 48px;
-  height: 48px;
+const ProjectImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
   object-fit: cover;
-  border-radius: 8px;
+  border: 2px solid ${({ theme }) => theme.primary};
+`;
+
+const ProjectTitle = styled.h3`
+  font-size: 1.15rem;
+  font-weight: 700;
+`;
+
+const ProjectCategory = styled.span`
+  font-size: 0.85rem;
+  color: ${({ theme }) => theme.primary};
+  font-weight: 600;
+  margin-top: -0.5rem;
+`;
+
+const MetaInfo = styled.div`
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.textLight};
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 `;
 
 const Badge = styled.span<{ $status: string }>`
@@ -102,9 +112,12 @@ const Badge = styled.span<{ $status: string }>`
     theme.textLight};
 `;
 
-const ActionGroup = styled.div`
+const CardActions = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.25rem;
 `;
 
 const IconButton = styled.button<{ $color: string }>`
@@ -344,55 +357,36 @@ const Projects: React.FC = () => {
         </AddButton>
       </Header>
 
-      <GlassCard>
-        {loading ? (
-          <div>Loading projects...</div>
-        ) : (
-          <TableContainer>
-            <Table>
-              <thead>
-              <tr>
-                <Th>Thumbnail</Th>
-                <Th>Title</Th>
-                <Th>Category</Th>
-                <Th>Client</Th>
-                <Th>Status</Th>
-                <Th>Actions</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((proj) => (
-                <tr key={proj._id}>
-                  <Td>
-                    {proj.thumbnailImage ? (
-                      <Thumbnail src={proj.thumbnailImage.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000'}${proj.thumbnailImage}` : proj.thumbnailImage} alt={proj.title} />
-                    ) : (
-                      <div style={{ width: 48, height: 48, background: '#3b82f615', borderRadius: 8 }} />
-                    )}
-                  </Td>
-                  <Td style={{ fontWeight: 600 }}>{proj.title}</Td>
-                  <Td>{proj.category}</Td>
-                  <Td>{proj.clientName || 'N/A'}</Td>
-                  <Td>
-                    <Badge $status={proj.status}>{proj.status}</Badge>
-                  </Td>
-                  <Td>
-                    <ActionGroup>
-                      <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(proj)}>
-                        <FaEdit />
-                      </IconButton>
-                      <IconButton $color="#ef4444" onClick={() => handleDelete(proj._id)}>
-                        <FaTrash />
-                      </IconButton>
-                    </ActionGroup>
-                  </Td>
-                </tr>
-              ))}
-            </tbody>
-            </Table>
-          </TableContainer>
-        )}
-      </GlassCard>
+      {loading ? (
+        <div>Loading projects...</div>
+      ) : (
+        <Grid>
+          {projects.map((proj) => (
+            <GlassCard key={proj._id}>
+              <CardActions>
+                <IconButton $color="#3b82f6" onClick={() => handleOpenEdit(proj)}>
+                  <FaEdit />
+                </IconButton>
+                <IconButton $color="#ef4444" onClick={() => handleDelete(proj._id)}>
+                  <FaTrash />
+                </IconButton>
+              </CardActions>
+              {proj.thumbnailImage ? (
+                <ProjectImage src={proj.thumbnailImage.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000'}${proj.thumbnailImage}` : proj.thumbnailImage} alt={proj.title} />
+              ) : (
+                <div style={{ width: 100, height: 100, background: '#3b82f615', borderRadius: 12, border: '2px solid #3b82f6' }} />
+              )}
+              <ProjectTitle>{proj.title}</ProjectTitle>
+              <ProjectCategory>{proj.category}</ProjectCategory>
+              <MetaInfo>
+                <span>Client: {proj.clientName || 'N/A'}</span>
+                <span>Date: {proj.projectDate ? new Date(proj.projectDate).toLocaleDateString() : 'N/A'}</span>
+              </MetaInfo>
+              <Badge $status={proj.status}>{proj.status}</Badge>
+            </GlassCard>
+          ))}
+        </Grid>
+      )}
 
       {isModalOpen && (
         <ModalOverlay onClick={() => setIsModalOpen(false)}>
