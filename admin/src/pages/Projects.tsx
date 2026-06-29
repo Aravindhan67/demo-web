@@ -53,10 +53,17 @@ const GlassCard = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
 `;
 
+const TableContainer = styled.div`
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+`;
+
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 700px;
 `;
 
 const Th = styled.th`
@@ -341,8 +348,9 @@ const Projects: React.FC = () => {
         {loading ? (
           <div>Loading projects...</div>
         ) : (
-          <Table>
-            <thead>
+          <TableContainer>
+            <Table>
+              <thead>
               <tr>
                 <Th>Thumbnail</Th>
                 <Th>Title</Th>
@@ -381,7 +389,8 @@ const Projects: React.FC = () => {
                 </tr>
               ))}
             </tbody>
-          </Table>
+            </Table>
+          </TableContainer>
         )}
       </GlassCard>
 
