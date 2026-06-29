@@ -95,7 +95,7 @@ export default function Contact() {
                 <div className="contact-section-heading">
                   <span className="services-section-label">Project enquiry</span>
                   <h2>Tell us what you&apos;re working on.</h2>
-                  <p>Your details are used only to prepare your WhatsApp enquiry.</p>
+                  <p>Your details are securely saved and used to prepare your WhatsApp enquiry.</p>
                 </div>
 
                 {status ? (

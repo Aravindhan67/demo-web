@@ -44,40 +44,72 @@ const ExportButton = styled.button`
   }
 `;
 
-const TableCard = styled.div`
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const GlassCard = styled.div`
   background: ${({ theme }) => theme.cardBg};
   backdrop-filter: ${({ theme }) => theme.glassBlur};
   border: 1px solid ${({ theme }) => theme.cardBorder};
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: ${({ theme }) => theme.shadow};
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
 `;
 
-const TableContainer = styled.div`
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+const ContactName = styled.h3`
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
 `;
 
-const Table = styled.table`
-  width: 100%;
-  min-width: 800px;
-  border-collapse: collapse;
-  text-align: left;
-`;
-
-const Th = styled.th`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  color: ${({ theme }) => theme.textLight};
-  font-weight: 600;
-  font-size: 0.85rem;
-`;
-
-const Td = styled.td`
-  padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+const ContactEmail = styled.a`
   font-size: 0.9rem;
+  color: ${({ theme }) => theme.primary};
+  text-decoration: none;
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const MetaInfo = styled.div`
+  font-size: 0.85rem;
+  color: ${({ theme }) => theme.textLight};
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+const SubjectText = styled.p`
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid ${({ theme }) => theme.borderColor};
+  color: ${({ theme }) => theme.text};
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const CardActions = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.25rem;
 `;
 
 const ActionGroup = styled.div`
@@ -213,49 +245,31 @@ const Contacts: React.FC = () => {
         </ExportButton>
       </Header>
 
-      <TableCard>
-        {loading ? (
-          <div>Loading contact enquiries...</div>
-        ) : (
-          <TableContainer>
-            <Table>
-              <thead>
-                <tr>
-                  <Th>Name</Th>
-                  <Th>Email</Th>
-                  <Th>Mobile</Th>
-                  <Th>Subject</Th>
-                  <Th>Date</Th>
-                  <Th>Actions</Th>
-                </tr>
-              </thead>
-              <tbody>
-                {contacts.map((c) => (
-                  <tr key={c._id}>
-                    <Td style={{ fontWeight: 600 }}>{c.name}</Td>
-                    <Td>{c.email}</Td>
-                    <Td>{c.mobileNumber || 'N/A'}</Td>
-                    <Td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {c.subject || 'No Subject'}
-                    </Td>
-                    <Td>{new Date(c.createdAt).toLocaleString()}</Td>
-                    <Td>
-                      <ActionGroup>
-                        <IconButton $color="#3b82f6" onClick={() => setSelectedEnquiry(c)}>
-                          <FaEye />
-                        </IconButton>
-                        <IconButton $color="#ef4444" onClick={() => handleDelete(c._id)}>
-                          <FaTrash />
-                        </IconButton>
-                      </ActionGroup>
-                    </Td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </TableContainer>
-        )}
-      </TableCard>
+      {loading ? (
+        <div>Loading contact enquiries...</div>
+      ) : (
+        <Grid>
+          {contacts.map((c) => (
+            <GlassCard key={c._id}>
+              <CardActions>
+                <IconButton $color="#3b82f6" onClick={() => setSelectedEnquiry(c)}>
+                  <FaEye />
+                </IconButton>
+                <IconButton $color="#ef4444" onClick={() => handleDelete(c._id)}>
+                  <FaTrash />
+                </IconButton>
+              </CardActions>
+              <ContactName>{c.name}</ContactName>
+              <ContactEmail href={`mailto:${c.email}`}>{c.email}</ContactEmail>
+              <MetaInfo>
+                <span>Phone: {c.mobileNumber || 'N/A'}</span>
+                <span>Date: {new Date(c.createdAt).toLocaleDateString()}</span>
+              </MetaInfo>
+              <SubjectText>{c.subject || 'No Subject'}</SubjectText>
+            </GlassCard>
+          ))}
+        </Grid>
+      )}
 
       {selectedEnquiry && (
         <ModalOverlay onClick={() => setSelectedEnquiry(null)}>

@@ -20,7 +20,9 @@ const uploadsDir = path.join(__dirname, 'uploads');
 
 // Middlewares
 app.use(cors({
-  origin: '*', // Allow all origins for dev/testing
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
   credentials: true
 }));
 app.use(express.json());
