@@ -23,6 +23,8 @@ const allowedOrigins = [
   'https://jacmedialand.com',
   'https://www.jacmedialand.com',
   'https://website-azure-seven-51.vercel.app',
+  'https://admin-demo-self-beta.vercel.app',
+  'https://demo-self-beta.vercel.app',
   'http://localhost:3000',
   'http://localhost:5173',
   'http://localhost:5174'
