@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000';
+export const API_URL = import.meta.env.VITE_CMS_API_URL || (import.meta.env.DEV ? 'http://localhost:4000' : 'https://demo-server-hakt.onrender.com');
 
 const getHeaders = (isMultipart = false) => {
   const token = localStorage.getItem('admin_token');

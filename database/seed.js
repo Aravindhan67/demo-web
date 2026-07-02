@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from '../server/node_modules/mongoose/index.js';
 import User from '../server/models/User.js';
 import Project from '../server/models/Project.js';
 import Gallery from '../server/models/Gallery.js';
@@ -9,6 +9,7 @@ import Testimonial from '../server/models/Testimonial.js';
 import Settings from '../server/models/Settings.js';
 import Contact from '../server/models/Contact.js';
 import Activity from '../server/models/Activity.js';
+import Program from '../server/models/Program.js';
 import { connectDB } from './connection.js';
 
 const seedData = async () => {
@@ -20,6 +21,7 @@ const seedData = async () => {
     await Project.deleteMany({});
     await Gallery.deleteMany({});
     await Service.deleteMany({});
+    await Program.deleteMany({});
     await Team.deleteMany({});
     await Blog.deleteMany({});
     await Testimonial.deleteMany({});
@@ -37,32 +39,52 @@ const seedData = async () => {
 
     console.log('Seeding Projects...');
     await Project.create([
+      { title: 'Gym', industry: 'Fitness', category: 'development', description: 'Gym project', projectUrl: 'https://gym-ten-sandy.vercel.app/', thumbnailImage: 'portfolio-visual-gym' },
+      { title: 'Travel Agency', industry: 'Travel', category: 'development', description: 'Travel Agency project', projectUrl: 'https://travel-agency-livid-delta.vercel.app/', thumbnailImage: 'portfolio-visual-travel' },
+      { title: 'Real Estate', industry: 'Property', category: 'development', description: 'Real Estate project', projectUrl: 'https://real-estate-delta-lake.vercel.app/', thumbnailImage: 'portfolio-visual-estate' },
+      { title: 'Chartered Accountants', industry: 'Professional services', category: 'development', description: 'Chartered Accountants project', projectUrl: 'https://chartered-accountant-website-opal.vercel.app/', thumbnailImage: 'portfolio-visual-accountants' },
+      { title: 'TM Brand Identity', industry: 'Corporate', category: 'logo', description: 'TM Brand Identity', projectUrl: '/logos/1.webp', thumbnailImage: '/logos/1.webp' },
+      { title: 'Kidhev Logo', industry: 'Healthcare', category: 'logo', description: 'Kidhev Logo', projectUrl: '/logos/2.webp', thumbnailImage: '/logos/2.webp' },
+      { title: 'Ww- Design', industry: 'Creative', category: 'logo', description: 'Ww- Design', projectUrl: '/logos/3.webp', thumbnailImage: '/logos/3.webp' },
+      { title: 'GOTFYD Branding', industry: 'Marketing', category: 'logo', description: 'GOTFYD Branding', projectUrl: '/logos/4.webp', thumbnailImage: '/logos/4.webp' },
+      { title: 'Toilal ELE Logo', industry: 'Industrial', category: 'logo', description: 'Toilal ELE Logo', projectUrl: '/logos/5.webp', thumbnailImage: '/logos/5.webp' },
+      { title: 'Uunet Wordmark', industry: 'Technology', category: 'logo', description: 'Uunet Wordmark', projectUrl: '/logos/6.webp', thumbnailImage: '/logos/6.webp' },
+      { title: 'HlGA Brand Identity', industry: 'Media', category: 'logo', description: 'HlGA Brand Identity', projectUrl: '/logos/7.webp', thumbnailImage: '/logos/7.webp' },
+      { title: 'NM Monogram', industry: 'Creative', category: 'logo', description: 'NM Monogram', projectUrl: '/logos/8.webp', thumbnailImage: '/logos/8.webp' },
+      { title: 'Level Up Learning', industry: 'Education', category: 'logo', description: 'Level Up Learning', projectUrl: '/logos/9.webp', thumbnailImage: '/logos/9.webp' },
+      { title: 'JAC Creative Brand', industry: 'Services', category: 'logo', description: 'JAC Creative Brand', projectUrl: '/logos/10.webp', thumbnailImage: '/logos/10.webp' },
+      { title: 'Lvel Design Logo', industry: 'Wellness', category: 'logo', description: 'Lvel Design Logo', projectUrl: '/logos/11.webp', thumbnailImage: '/logos/11.webp' },
+      { title: 'Corporate Emblem', industry: 'Finance', category: 'logo', description: 'Corporate Emblem', projectUrl: '/logos/12.webp', thumbnailImage: '/logos/12.webp' },
+      { title: 'Upwork Identity', industry: 'Technology', category: 'logo', description: 'Upwork Identity', projectUrl: '/logos/13.webp', thumbnailImage: '/logos/13.webp' },
+      { title: 'VVM Traders', industry: 'Agriculture', category: 'logo', description: 'VVM Traders', projectUrl: '/logos/14.webp', thumbnailImage: '/logos/14.webp' }
+    ]);
+
+    console.log('Seeding Programs...');
+    await Program.create([
       {
-        title: 'JAC MediaLand Website Redesign',
-        category: 'Web Development',
-        description: 'A complete redesign and migration of JAC MediaLand brand site to a highly responsive, modern glassmorphic interface.',
-        clientName: 'JAC MediaLand Group',
-        projectDate: new Date('2026-05-15'),
-        status: 'Completed',
-        technologiesUsed: ['React', 'TypeScript', 'Styled Components', 'Vite'],
-        thumbnailImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-        galleryImages: [
-          'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=800&q=80'
-        ],
-        projectUrl: 'https://jacmedialand.com'
+        title: 'Internship Program',
+        slug: 'internship',
+        kind: 'active',
+        launch: 'Open Now',
+        description: 'Work alongside our team, develop practical industry skills, and gain professional exposure through real-time digital projects.',
+        path: '/programs/internship',
+        imageKey: 'internship'
       },
       {
-        title: 'E-Commerce Platform for Fashion Retailer',
-        category: 'App Development',
-        description: 'Scalable mobile-first commerce experience featuring fast checkouts, live catalog searches, and robust inventory management integrations.',
-        clientName: 'Vogue Boutique',
-        projectDate: new Date('2026-04-10'),
-        status: 'In Progress',
-        technologiesUsed: ['React Native', 'Node.js', 'Express', 'MongoDB'],
-        thumbnailImage: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80',
-        galleryImages: [],
-        projectUrl: ''
+        title: 'Full-Stack Bootcamp',
+        slug: 'full-stack-bootcamp',
+        kind: 'upcoming',
+        launch: 'Launching Q3 2026',
+        description: 'A practical pathway covering modern web development from interface to deployment.',
+        imageKey: 'full-stack'
+      },
+      {
+        title: 'UI/UX & Graphic Design',
+        slug: 'ui-ux-graphic-design',
+        kind: 'upcoming',
+        launch: 'Launching Q4 2026',
+        description: 'Build thoughtful design skills across digital products, brands, and visual systems.',
+        imageKey: 'design'
       }
     ]);
 
@@ -87,31 +109,17 @@ const seedData = async () => {
 
     console.log('Seeding Team...');
     await Team.create([
-      {
-        employeeName: 'Jane Doe',
-        designation: 'Managing Director & Founder',
-        email: 'jane@jacmedialand.com',
-        mobileNumber: '+1 234 567 890',
-        joiningDate: new Date('2024-01-15'),
-        profilePhoto: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80',
-        socialMediaLinks: {
-          linkedin: 'https://linkedin.com/in/janedoe',
-          twitter: 'https://twitter.com/janedoe',
-          github: ''
-        }
-      },
-      {
-        employeeName: 'John Smith',
-        designation: 'Lead Frontend Architect',
-        email: 'john@jacmedialand.com',
-        mobileNumber: '+1 987 654 321',
-        joiningDate: new Date('2025-06-01'),
-        profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80',
-        socialMediaLinks: {
-          linkedin: 'https://linkedin.com/in/johnsmith',
-          github: 'https://github.com/johnsmith'
-        }
-      }
+      { employeeName: 'John Charles', designation: 'Founder and CEO', email: 'john@jacmedialand.com', profilePhoto: 'john-founder.jpg', featured: true, message: 'Building a team where thoughtful ideas, bold creativity, and dependable execution come together to create work that matters.' },
+      { employeeName: 'DHARANIDHRAN P', designation: 'HR & MANAGER', email: 'hr@jacmedialand.com', profilePhoto: 'dharanidhran.png' },
+      { employeeName: 'KAPEESH S', designation: 'TEAM LEAD', email: 'kapeesh@jacmedialand.com', profilePhoto: 'kapeesh.png' },
+      { employeeName: 'GOWSHIK S', designation: 'DEVELOPER', email: 'gowshik@jacmedialand.com', profilePhoto: 'gowshik.png' },
+      { employeeName: 'MOHAN RAJ P', designation: 'UI UX DESIGNER', email: 'mohan@jacmedialand.com', profilePhoto: 'mohan.png' },
+      { employeeName: 'SAHAYA STEPHEN S', designation: 'DATA ANALYST', email: 'stephen@jacmedialand.com', profilePhoto: 'stephen.png' },
+      { employeeName: 'VINODH T', designation: 'DEVELOPER', email: 'vinodh@jacmedialand.com', profilePhoto: 'vinodh.png' },
+      { employeeName: 'MOUNIKA V M', designation: 'SOCIAL MEDIA MANAGER', email: 'mounika@jacmedialand.com', profilePhoto: 'mounika.png' },
+      { employeeName: 'Nithya Sree M', designation: 'Social Media Management', email: 'nithya@jacmedialand.com', profilePhoto: 'nithya.png' },
+      { employeeName: 'Aswinprabu', designation: 'Digital Marketing', email: 'aswin@jacmedialand.com', profilePhoto: 'aswin.png' },
+      { employeeName: 'Mugesh', designation: 'Digital Marketing', email: 'mugesh@jacmedialand.com', profilePhoto: 'mugesh.png' }
     ]);
 
     console.log('Seeding Gallery...');

@@ -198,7 +198,7 @@ const Projects: React.FC = () => {
                 </IconButton>
               </CardActions>
               {proj.thumbnailImage ? (
-                <ProjectImage src={proj.thumbnailImage.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000'}${proj.thumbnailImage}` : proj.thumbnailImage} alt={proj.title} />
+                <ProjectImage src={proj.thumbnailImage.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || (import.meta.env.DEV ? 'http://localhost:4000' : 'https://demo-server-hakt.onrender.com')}${proj.thumbnailImage}` : proj.thumbnailImage} alt={proj.title} />
               ) : (
                 <div style={{ width: '100%', height: 180, background: '#3b82f615', borderRadius: 12, border: '2px dashed #3b82f6' }} />
               )}

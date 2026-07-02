@@ -198,7 +198,7 @@ const Team: React.FC = () => {
                   <FaTrash />
                 </IconButton>
               </CardActions>
-              <ProfilePhoto src={m.profilePhoto?.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000'}${m.profilePhoto}` : m.profilePhoto || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80'} alt={m.employeeName} />
+              <ProfilePhoto src={m.profilePhoto?.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || (import.meta.env.DEV ? 'http://localhost:4000' : 'https://demo-server-hakt.onrender.com')}${m.profilePhoto}` : m.profilePhoto || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80'} alt={m.employeeName} />
               <Name>{m.employeeName}</Name>
               <Designation>{m.designation}</Designation>
               <MetaInfo>

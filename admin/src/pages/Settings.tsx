@@ -230,7 +230,7 @@ const Settings: React.FC = () => {
 
   if (loading) return <div>Loading website settings...</div>;
 
-  const getMediaUrl = (url: string) => url.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || 'http://localhost:4000'}${url}` : url;
+  const getMediaUrl = (url: string) => url.startsWith('/uploads') ? `${import.meta.env.VITE_CMS_API_URL || (import.meta.env.DEV ? 'http://localhost:4000' : 'https://demo-server-hakt.onrender.com')}${url}` : url;
 
   return (
     <Form className="animated-fade" onSubmit={handleSubmit}>

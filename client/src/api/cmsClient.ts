@@ -9,7 +9,7 @@ export interface CmsClientOptions {
 const SITE_KEY = 'jac-medialand';
 
 function configuredBaseUrl(): string {
-  return import.meta.env?.VITE_CMS_API_URL || (import.meta.env?.DEV ? 'http://localhost:4000' : 'https://website-1cc5.onrender.com');
+  return import.meta.env?.VITE_CMS_API_URL || (import.meta.env?.DEV ? 'http://localhost:4000' : 'https://demo-server-hakt.onrender.com');
 }
 
 export function buildCmsUrl(path: string, baseUrl = configuredBaseUrl()): string {
@@ -25,6 +25,7 @@ export async function fetchCmsJson<T>(
   const timeout = globalThis.setTimeout(() => controller.abort(), options.timeoutMs ?? 4_000);
   try {
     const response = await (options.fetchImpl ?? fetch)(buildCmsUrl(path, options.baseUrl), {
+      cache: 'no-store',
       ...init,
       headers: {
         'Content-Type': 'application/json',
